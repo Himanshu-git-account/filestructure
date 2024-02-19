@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
 import './App.css';
+import FileComomponent from './fileConatiner/FileComomponent';
+import { useFile } from './fileConatiner/useFile';
+import {treeList} from './fileStructuture'
 
 function App() {
+  const {addFile,deleteFile} = useFile();
+   const [tree,setTree] =useState(treeList)
+  const handleAdd= (obj,id) =>{
+    setTree(addFile(obj,id,tree));
+  }
+  const handleDelete =(id)=>{
+    setTree(deleteFile(id,tree))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <FileComomponent list={tree} handleAdd={handleAdd} handleDelete={handleDelete}/>
     </div>
   );
 }
